@@ -15,37 +15,43 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 Get source code and make build directory
 
 ```bash
-wget http://cern.ch/geant4-data/releases/geant4.10.07.p02.tar.gz
-tar xvzf geant4.10.07.p02.tar.gz
-mkdir geant4.10.07-build
-cd geant4.10.07-build
+wget http://cern.ch/geant4-data/releases/geant4.10.07.p02.tar.gz\ntar xvzf geant4.10.07.p02.tar.gz\nmkdir geant4.10.07-build\ncd geant4.10.07-build
+mkdir geant4.10.07.p02-build
+cd geant4.10.07.p02-build
 ```
 
 Get initial CMake files:
 
 ```bash
-cmake -DCMAKE_INSTALL_PREFIX=/Users/mcfayden/Work/FASER/FASER2/G4_v2/geant4.10.07.p02-install -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON -DXQuartzGL_INCLUDE_DIR=/usr/X11R6/include -DXQuartzGL_gl_LIBRARY=/usr/X11R6/lib/libGL.dylib -DXQuartzGL_glu_LIBRARY=/usr/X11R6/lib/libGLU.dylib /Users/mcfayden/Work/FASER/FASER2/G4_v2/geant4.10.07.p02
+cmake -DCMAKE_INSTALL_PREFIX=../geant4.10.07.p02-install -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON -DXQuartzGL_INCLUDE_DIR=/usr/X11R6/include -DXQuartzGL_gl_LIBRARY=/usr/X11R6/lib/libGL.dylib -DXQuartzGL_glu_LIBRARY=/usr/X11R6/lib/libGLU.dylib ../geant4.10.07.p02
 ```
 
 Then edit to get X11 consistently from one place:
 ```bash
-sed -i'' -e $'/X11/s:/usr/local:/usr/X11R6:g' ../geant4.10.07-build/CMakeCache.txt
+sed -i'' -e $'/X11/s:/usr/local:/usr/X11R6:g' CMakeCache.txt
 ```
 
 Run cmake and compile
 ```bash
-cmake -DCMAKE_INSTALL_PREFIX=/Users/mcfayden/Work/FASER/FASER2/G4_v2/geant4.10.07.p02-install -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON -DXQuartzGL_INCLUDE_DIR=/usr/X11R6/include -DXQuartzGL_gl_LIBRARY=/usr/X11R6/lib/libGL.dylib -DXQuartzGL_glu_LIBRARY=/usr/X11R6/lib/libGLU.dylib -DGEANT4_USE_QT=ON -DCMAKE_PREFIX_PATH=/usr/local//Cellar/qt@5/5.15.2/lib/cmake/ /Users/mcfayden/Work/FASER/FASER2/G4_v2/geant4.10.07.p02
-
+cmake -DCMAKE_INSTALL_PREFIX=../geant4.10.07.p02-install -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_INSTALL_DATA=ON -DXQuartzGL_INCLUDE_DIR=/usr/X11R6/include -DXQuartzGL_gl_LIBRARY=/usr/X11R6/lib/libGL.dylib -DXQuartzGL_glu_LIBRARY=/usr/X11R6/lib/libGLU.dylib -DGEANT4_USE_QT=ON -DCMAKE_PREFIX_PATH=/usr/local//Cellar/qt@5/5.15.2/lib/cmake/ ../geant4.10.07.p02
 make 
 make install
 ```
 
+Setup environment:
+```
+cd ../geant4.10.07.p02-install/bin
+source geant4.sh
+cd ../../
+```
+
 Test simple build:
 ```bash
-cp -r geant4.10.07.p02/examples/basic/B1 .	
+cp -r geant4.10.07.p02/examples/basic/B1 .
 mkdir B1-build
 cd B1-build
 cmake ../B1
+make
 ./exampleB1
 ```
 
@@ -54,13 +60,13 @@ cmake ../B1
 
 For everything here I have used HepMCv2.06 installed via Rivet: see [here](https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/doc/tutorials/installation.md).
 
-
 Test HepMC G4 build:
 ```bash
 cp -r geant4.10.07.p02/examples/extended/eventgenerator/HepMC/HepMCEx01 .
 mkdir HepMCEx01-build
 cd HepMCEx01-build
 cmake -DHEPMC_LIBRARIES=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11-build/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11/ ../HepMCEx01
+make
 ./HepMCEx01 hepmc_ascii.in
 ```
 
