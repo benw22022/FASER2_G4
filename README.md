@@ -85,6 +85,8 @@ Start by copying the `FASER2_HepMC_v4_FASER2_Default_1stTrkStation` source folde
 ```bash
 cp -r FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
 cd newGeo
+mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
+ 9506  sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
@@ -116,7 +118,7 @@ Once you have the geometry and magnetic fields you want you can compile:
 mkdir newGeo-build
 cd newGeo-build
 cp FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.in FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.mac .
-cmake -DHEPMC_LIBRARIES=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11-build/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11/ ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation
+cmake -DHEPMC_LIBRARIES=<PATH TO HEPMC>/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=<PATH TO HEPMC> ../newGeo
 ```
 
 And now we are finally ready to run!
@@ -124,6 +126,11 @@ And now we are finally ready to run!
 To run just a few events and see the visualisation:
 ```bash
 ./newGeo 
+```
+
+To run 1M events:
+```bash
+./newGeo foresee_hepmc_ascii.in
 ```
 
 
