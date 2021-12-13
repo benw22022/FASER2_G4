@@ -120,7 +120,7 @@ To run just a few events and see the visualisation:
 ./newGeo 
 ```
 
-To run just a few events and see the visualisation:
+To run 1M events:
 ```bash
 ./newGeo foresee_hepmc_ascii.in
 ```
