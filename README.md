@@ -89,7 +89,7 @@ Start by copying the `FASER2_HepMC_v4_FASER2_Default_1stTrkStation` source folde
 cp -r FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
 cd newGeo
 mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
- 9506  sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
+sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
@@ -118,22 +118,24 @@ And then the magnetic field strengths are controlled in `newGeo/src/ExN04Field.c
 
 Once you have the geometry and magnetic fields you want you can compile:
 ```bash
+cd ..
 mkdir newGeo-build
 cd newGeo-build
-cp FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.in FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.mac .
+cp ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.in ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.mac .
 cmake -DHEPMC_LIBRARIES=<PATH TO HEPMC>/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=<PATH TO HEPMC> ../newGeo
+make
 ```
 
 And now we are finally ready to run!
 
-To run just a few events and see the visualisation:
+To run just a few events and keep the visualisation open:
 ```bash
-./newGeo 
+./newGeo
 ```
 
-To run 1M events:
+To run over 1M events in HepMC file:
 ```bash
-./newGeo foresee_hepmc_ascii.in
+./newGeo foresee_hepmc_ascii_1M.in
 ```
 
 
