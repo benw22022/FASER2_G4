@@ -79,6 +79,8 @@ Start by copying the `FASER2_HepMC_v4_FASER2_Default_1stTrkStation` source folde
 ```bash
 cp -r FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
 cd newGeo
+mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
+ 9506  sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
