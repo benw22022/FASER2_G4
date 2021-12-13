@@ -46,6 +46,7 @@ cp -r geant4.10.07.p02/examples/basic/B1 .
 mkdir B1-build
 cd B1-build
 cmake ../B1
+make
 ./exampleB1
 ```
 
@@ -61,6 +62,7 @@ cp -r geant4.10.07.p02/examples/extended/eventgenerator/HepMC/HepMCEx01 .
 mkdir HepMCEx01-build
 cd HepMCEx01-build
 cmake -DHEPMC_LIBRARIES=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11-build/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11/ ../HepMCEx01
+make
 ./HepMCEx01 hepmc_ascii.in
 ```
 
