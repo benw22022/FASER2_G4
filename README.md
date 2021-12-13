@@ -110,7 +110,7 @@ Once you have the geometry and magnetic fields you want you can compile:
 mkdir newGeo-build
 cd newGeo-build
 cp FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.in FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.mac .
-cmake -DHEPMC_LIBRARIES=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11-build/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11/ ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation
+cmake -DHEPMC_LIBRARIES=<PATH TO HEPMC>/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=<PATH TO HEPMC> ../newGeo
 ```
 
 And now we are finally ready to run!
