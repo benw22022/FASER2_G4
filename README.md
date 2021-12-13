@@ -138,5 +138,9 @@ To run over 1M events in HepMC file:
 ./newGeo foresee_hepmc_ascii_1M.in
 ```
 
+Note that the input location of the HepMC file is given by this line in `foresee_hepmc_ascii.in`/`foresee_hepmc_ascii_1M.in`:
+```
+/generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L5_Z480.hepmc
+```
 
 
