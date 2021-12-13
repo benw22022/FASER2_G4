@@ -120,5 +120,10 @@ To run just a few events and see the visualisation:
 ./newGeo 
 ```
 
+To run just a few events and see the visualisation:
+```bash
+./newGeo foresee_hepmc_ascii.in
+```
+
 
 
