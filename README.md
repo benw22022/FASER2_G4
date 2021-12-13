@@ -7,7 +7,7 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 
 
 
-## Install/setup up Geant4 MacOS
+## Install/setup up Geant4 on MacOS (tested on 11.4)
 
 
 ### Install G4:
@@ -53,6 +53,7 @@ cd B1-build
 cmake ../B1
 make
 ./exampleB1
+cd ..
 ```
 
 
@@ -60,7 +61,7 @@ make
 
 For everything here I have used HepMCv2.06 installed via Rivet: see [here](https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/doc/tutorials/installation.md).
 
-NASTY HACK ALERT: For some reason, to get this to compile I have to change `#include <math.h>` to `#include </Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h>` in `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath`...
+NASTY HACK ALERT: For some reason, to get this to compile I have to change `#include <math.h>` to `#include </Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h>` in `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath` otherwise `math.h` gets sourced from somewhere else instead...
 
 
 Test HepMC G4 build:
@@ -72,8 +73,6 @@ cmake -DHEPMC_LIBRARIES=/Users/mcfayden/Work/ATLAS/mcgen/HepMC-2.06.11-build/lib
 make
 ./HepMCEx01 hepmc_ascii.in
 ```
-
-
 
 ### Each new session
 ```bash
@@ -93,12 +92,12 @@ sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
-All the main things to control can be edited from the `newGeo/src/ExN04DetectorParameterDef.icc` file.
+All the main things to control can be edited from the `ExN04DetectorParameterDef.icc` and `ExN04Field.cc` files.
 TODO: Make this configurable from macro file.
 
-For example magnet geometry is controlled by:
+For example magnet geometry is controlled in `newGeo/src/ExN04DetectorParameterDef.icc` by changing:
 ```cpp
-fmagcase_rmax =  130.*cm;
+fmagcase_rmax =  130.*cm; // doesn't matter what value this is it's only used for visualisation 
 fmag_rmax =  100.*cm;
 
 fmag1_dz =  5.*m;
@@ -128,12 +127,12 @@ make
 
 And now we are finally ready to run!
 
-To run just a few events and keep the visualisation open:
+To run just a few events of a HepMC file and keep the visualisation open do:
 ```bash
 ./newGeo
 ```
 
-To run over 1M events in HepMC file:
+To run over 1M events in HepMC file and close the visualisation do:
 ```bash
 ./newGeo foresee_hepmc_ascii_1M.in
 ```
@@ -142,5 +141,7 @@ Note that the input location of the HepMC file is given by this line in `foresee
 ```
 /generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L5_Z480.hepmc
 ```
+
+The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station.
 
 
