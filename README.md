@@ -60,6 +60,9 @@ make
 
 For everything here I have used HepMCv2.06 installed via Rivet: see [here](https://gitlab.com/hepcedar/rivet/-/blob/release-3-1-x/doc/tutorials/installation.md).
 
+NASTY HACK ALERT: For some reason, to get this to compile I have to change `#include <math.h>` to `#include </Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h>` in `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath`...
+
+
 Test HepMC G4 build:
 ```bash
 cp -r geant4.10.07.p02/examples/extended/eventgenerator/HepMC/HepMCEx01 .
