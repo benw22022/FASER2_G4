@@ -63,6 +63,10 @@ For everything here I have used HepMCv2.06 installed via Rivet: see [here](https
 
 NASTY HACK ALERT: For some reason, to get this to compile I have to change `#include <math.h>` to `#include </Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h>` in `/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath` otherwise `math.h` gets sourced from somewhere else instead...
 
+You may also need to run:
+```bash
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
 
 Test HepMC G4 build:
 ```bash
