@@ -35,6 +35,11 @@ Test run:
 ./newGeo hepmc_ascii_foresee.in
 ```
 
+Once compiled, to just run for every new login you just need the following setup line:
+```bash
+source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
+```
+
 
 
 ## Install/setup up Geant4 on MacOS (tested on 11.4)
