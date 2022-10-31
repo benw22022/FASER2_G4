@@ -1,9 +1,39 @@
-# FASER2_G4
+B0;95;0c# FASER2_G4
 
 This package creates simple G4 geometries for FASER2 sensitivity studies.
 Before setting this up you need to be able to create HepMC files using my modified [FORESEE package](https://github.com/joshmcfayden/FORESEE).
 
 The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see later for more details.
+
+## Install/setup up Geant4 on lxplus (tested with LCG_101 view)
+
+Setup G4 and enviroment from LCG:
+```bash
+source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
+```
+
+Get FASER2 G4 geometry and creat "newGeo" version
+```bash
+git clone https://github.com/joshmcfayden/FASER2_G4.git
+cp -r FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
+cd newGeo
+mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
+sed -i 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
+```
+
+Creat build directory and compile
+```bash
+cd ..
+mkdir newGeo-build
+cd newGeo-build
+cmake -DCMAKE_BUILD_TYPE=Debug ../newGeo
+make
+```
+
+Test run:
+```bash
+./newGeo hepmc_ascii_foresee.in
+```
 
 
 
