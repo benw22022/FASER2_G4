@@ -1,4 +1,4 @@
-B0;95;0c# FASER2_G4
+# FASER2_G4
 
 This package creates simple G4 geometries for FASER2 sensitivity studies.
 Before setting this up you need to be able to create HepMC files using my modified [FORESEE package](https://github.com/joshmcfayden/FORESEE).
