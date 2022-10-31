@@ -12,7 +12,7 @@ Setup G4 and enviroment from LCG:
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
 ```
 
-Get FASER2 G4 geometry and creat "newGeo" version
+Get FASER2 G4 geometry and create "newGeo" version:
 ```bash
 git clone https://github.com/joshmcfayden/FASER2_G4.git
 cp -r FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
@@ -21,7 +21,7 @@ mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
 sed -i 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
-Creat build directory and compile
+Creat build directory and compile:
 ```bash
 cd ..
 mkdir newGeo-build
