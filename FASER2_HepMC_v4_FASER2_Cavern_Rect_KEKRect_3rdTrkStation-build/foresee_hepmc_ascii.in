@@ -1,0 +1,7 @@
+/control/execute vis.mac
+#/vis/scene/add/magneticField 105
+/generator/select hepmcAscii
+#/generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_R1-L10-R1x3_mass0p0100GeV_coup1p000e-08.hepmc
+/generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FASER_FORESEE/mytest_G4_KEKRect/events_14TeV_m0.1GeV_c1e-05to_11_-11_test1.hepmc
+/generator/hepmcAscii/verbose 1
+/run/beamOn 10

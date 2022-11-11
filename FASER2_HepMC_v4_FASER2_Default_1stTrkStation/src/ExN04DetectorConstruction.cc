@@ -150,7 +150,7 @@ G4VPhysicalVolume* ExN04DetectorConstruction::Construct()
   //magcase_logVisAtt->SetForceWireframe(true);
   magcase_logVisAtt1->SetForceSolid(true);
   magcase_log1->SetVisAttributes(magcase_logVisAtt1);
-
+ 
   G4VSolid* mag_tubs1 = new G4Tubs("magTubs_tubs1", 0, fmag_rmax, fmag1_dz/2, fmag_sphi, fmag_dphi);
   G4LogicalVolume* mag_log1  = new G4LogicalVolume(mag_tubs1, fAir,"magT_L1",0,0,0);
   //G4VPhysicalVolume * mag_phys1 =
