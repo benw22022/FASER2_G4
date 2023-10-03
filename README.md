@@ -32,6 +32,7 @@ make
 
 Test run:
 ```bash
+cp ../FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/* .
 ./newGeo hepmc_ascii_foresee.in
 ```
 
