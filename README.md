@@ -33,7 +33,7 @@ make
 Test run:
 ```bash
 cp ../FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/* .
-./newGeo hepmc_ascii_foresee.in
+./newGeo hepmc_ascii.in
 ```
 
 Once compiled, to just run for every new login you just need the following setup line:
