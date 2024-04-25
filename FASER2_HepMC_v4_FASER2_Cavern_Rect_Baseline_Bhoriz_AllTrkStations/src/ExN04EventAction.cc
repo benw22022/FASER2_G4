@@ -154,6 +154,68 @@ ExN04EventAction::ExN04EventAction()
 
   man->FinishNtuple();
 
+  man->CreateNtuple("Hits4","Hits4");
+  man->CreateNtupleIColumn("fEvent");
+  man->CreateNtupleDColumn("ep_x");
+  man->CreateNtupleDColumn("ep_y");
+  man->CreateNtupleDColumn("ep_z");
+  man->CreateNtupleDColumn("ep_E");
+  man->CreateNtupleDColumn("em_x");
+  man->CreateNtupleDColumn("em_y");
+  man->CreateNtupleDColumn("em_z");
+  man->CreateNtupleDColumn("em_E");
+
+  man->CreateNtupleDColumn("mp_x");
+  man->CreateNtupleDColumn("mp_y");
+  man->CreateNtupleDColumn("mp_z");
+  man->CreateNtupleDColumn("mp_E");
+  man->CreateNtupleDColumn("mm_x");
+  man->CreateNtupleDColumn("mm_y");
+  man->CreateNtupleDColumn("mm_z");
+  man->CreateNtupleDColumn("mm_E");
+
+  man->CreateNtupleDColumn("hp_x");
+  man->CreateNtupleDColumn("hp_y");
+  man->CreateNtupleDColumn("hp_z");
+  man->CreateNtupleDColumn("hp_E");
+  man->CreateNtupleDColumn("hm_x");
+  man->CreateNtupleDColumn("hm_y");
+  man->CreateNtupleDColumn("hm_z");
+  man->CreateNtupleDColumn("hm_E");
+
+  man->FinishNtuple();
+
+  man->CreateNtuple("Hits5","Hits5");
+  man->CreateNtupleIColumn("fEvent");
+  man->CreateNtupleDColumn("ep_x");
+  man->CreateNtupleDColumn("ep_y");
+  man->CreateNtupleDColumn("ep_z");
+  man->CreateNtupleDColumn("ep_E");
+  man->CreateNtupleDColumn("em_x");
+  man->CreateNtupleDColumn("em_y");
+  man->CreateNtupleDColumn("em_z");
+  man->CreateNtupleDColumn("em_E");
+
+  man->CreateNtupleDColumn("mp_x");
+  man->CreateNtupleDColumn("mp_y");
+  man->CreateNtupleDColumn("mp_z");
+  man->CreateNtupleDColumn("mp_E");
+  man->CreateNtupleDColumn("mm_x");
+  man->CreateNtupleDColumn("mm_y");
+  man->CreateNtupleDColumn("mm_z");
+  man->CreateNtupleDColumn("mm_E");
+
+  man->CreateNtupleDColumn("hp_x");
+  man->CreateNtupleDColumn("hp_y");
+  man->CreateNtupleDColumn("hp_z");
+  man->CreateNtupleDColumn("hp_E");
+  man->CreateNtupleDColumn("hm_x");
+  man->CreateNtupleDColumn("hm_y");
+  man->CreateNtupleDColumn("hm_z");
+  man->CreateNtupleDColumn("hm_E");
+
+  man->FinishNtuple();
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -187,6 +249,8 @@ void ExN04EventAction::EndOfEventAction(const G4Event* evt)
   sensDets.push_back("sensDet1");
   sensDets.push_back("sensDet2");
   sensDets.push_back("sensDet3");
+  sensDets.push_back("sensDet4");
+  sensDets.push_back("sensDet5");
 
   for (unsigned int isd = 0; isd < sensDets.size(); isd++) {
     
