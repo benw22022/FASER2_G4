@@ -33,7 +33,8 @@
 
 #include "G4UserEventAction.hh"
 #include "globals.hh"
-#include "g4root.hh"
+//#include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 class ExN04EventAction : public G4UserEventAction {
 public:

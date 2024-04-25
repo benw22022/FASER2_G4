@@ -7,6 +7,13 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 
 
 
+## Install/setup up Geant4 on lxplus
+
+You simply need to setup an LCG view:
+```bash
+source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+```
+
 ## Install/setup up Geant4 on MacOS (tested on 11.4)
 
 

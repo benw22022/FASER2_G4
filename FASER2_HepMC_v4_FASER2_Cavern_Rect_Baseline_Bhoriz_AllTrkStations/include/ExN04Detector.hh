@@ -4,7 +4,8 @@
 #include "ExN04DetectorHit.hh"
 #include "G4VSensitiveDetector.hh"
 #include "G4RunManager.hh"
-#include "g4root.hh"
+//#include "g4root.hh"
+#include "G4AnalysisManager.hh"
 
 class ExN04Detector : public G4VSensitiveDetector
 {
