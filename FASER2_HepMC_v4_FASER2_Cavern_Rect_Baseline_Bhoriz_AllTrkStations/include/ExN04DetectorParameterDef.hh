@@ -49,6 +49,8 @@ G4double fmag1_locz;
 G4double SD1_locz;
 G4double SD2_locz;
 G4double SD3_locz;
+G4double SD4_locz;
+G4double SD5_locz;
 
 
 G4double fmag2_dz;

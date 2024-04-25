@@ -58,6 +58,8 @@ private:
   G4LogicalVolume* SD1_log;
   G4LogicalVolume* SD2_log;
   G4LogicalVolume* SD3_log;
+  G4LogicalVolume* SD4_log;
+  G4LogicalVolume* SD5_log;
   
   virtual void ConstructSDandField();
   

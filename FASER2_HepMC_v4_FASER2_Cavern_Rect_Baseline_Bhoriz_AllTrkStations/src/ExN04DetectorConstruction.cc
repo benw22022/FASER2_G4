@@ -201,6 +201,14 @@ G4VPhysicalVolume* ExN04DetectorConstruction::Construct()
   SD3_log = new G4LogicalVolume(SD3_box, fAir,"SD3_log");
   G4VPhysicalVolume * SD3_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD3_locz), SD3_log, "SD3_phys", experimentalHall_log, false, 0);
 
+  G4Box* SD4_box = new G4Box("SD4_box", 10*m, 10*m, 0.1*mm);
+  SD4_log = new G4LogicalVolume(SD4_box, fAir,"SD4_log");
+  G4VPhysicalVolume * SD4_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD4_locz), SD4_log, "SD4_phys", experimentalHall_log, false, 0);
+
+  G4Box* SD5_box = new G4Box("SD5_box", 10*m, 10*m, 0.1*mm);
+  SD5_log = new G4LogicalVolume(SD5_box, fAir,"SD5_log");
+  G4VPhysicalVolume * SD5_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD5_locz), SD5_log, "SD5_phys", experimentalHall_log, false, 0);
+
   
     
   //------------------------------------------------------------------
@@ -225,5 +233,14 @@ void ExN04DetectorConstruction::ConstructSDandField(){
   ExN04Detector* sensDet3 = new ExN04Detector("sensDet3");
   SD3_log->SetSensitiveDetector(sensDet3);
   sdman->AddNewDetector(sensDet3);
+
+  ExN04Detector* sensDet4 = new ExN04Detector("sensDet4");
+  SD4_log->SetSensitiveDetector(sensDet4);
+  sdman->AddNewDetector(sensDet4);
+
+  ExN04Detector* sensDet5 = new ExN04Detector("sensDet5");
+  SD5_log->SetSensitiveDetector(sensDet5);
+  sdman->AddNewDetector(sensDet5);
+
 
 }
