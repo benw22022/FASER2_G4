@@ -43,8 +43,15 @@ source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
 
 
 
-## Install/setup up Geant4 on MacOS (tested on 11.4)
+## Install/setup up Geant4 on lxplus
 
+You simply need to setup an LCG view:
+```bash
+source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+```
+
+
+## Install/setup up Geant4 on MacOS (tested on 11.4)
 
 ### Install G4:
 

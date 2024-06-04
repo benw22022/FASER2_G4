@@ -1,0 +1,7 @@
+/control/execute vis.mac
+/vis/scene/add/magneticField 100
+/generator/select hepmcAscii
+/generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L10_Z620.hepmc
+/generator/hepmcAscii/verbose 1
+/run/beamOn 1000000
+
