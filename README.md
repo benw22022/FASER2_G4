@@ -8,11 +8,13 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 ## Install/setup up Geant4 on lxplus (tested with LCG_101 view)
 
 Setup G4 and enviroment from LCG:
+
 ```bash
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
 ```
 
 Get FASER2 G4 geometry and create "newGeo" version:
+
 ```bash
 git clone https://github.com/joshmcfayden/FASER2_G4.git
 cp -r FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
@@ -21,7 +23,8 @@ mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
 sed -i 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
-Creat build directory and compile:
+Create build directory and compile:
+
 ```bash
 cd ..
 mkdir newGeo-build
@@ -31,25 +34,43 @@ make
 ```
 
 Test run:
+
 ```bash
 cp ../FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/* .
 ./newGeo hepmc_ascii.in
 ```
 
 Once compiled, to just run for every new login you just need the following setup line:
+
 ```bash
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
 ```
 
-
-
 ## Install/setup up Geant4 on lxplus
 
 You simply need to setup an LCG view:
+
 ```bash
 source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
 ```
 
+## Running Geant4 with Docker
+
+Geant4 can be a massive pain to set up and install on your own machine. An easier solution is to run Geant4 through a Docker container which has access to `cvmfs`. A git repository which contains instructions and scripts for running el9 docker container with `cvmfs` access can be found here [github.com/benw22022/el9-cvmfs-docker](https://github.com/benw22022/el9-cvmfs-docker/tree/master). This setup so far has been tested on Ubuntu-20.04 (running in WSL2) and on Mac OS. Mac users please read instructions carefully as there are a number of steps to get x11 forwarding working properly - you may need to restart your laptop multiple times.
+
+Once you have repository cloned, followed the steps to install docker and have enabled x11 forwarding you can start the container by doing:
+
+```bash
+./run_container.sh /path/to/FASER2_G4
+```
+
+This will start the container and mount the path to your `FASER2_G4` directory to the home directory of the container and mount `cvmfs`. *NOTE:* the files and folders within `/path/to/FASER2_G4` will be the *only* ones visible within the container. Any files created outside the container's home directory will not be saved on exit; neither will any changes to the environment.
+
+Once within the container you can obtain Geant4 by setting up an LCG release as you would on lxplus
+
+```bash
+source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+```
 
 ## Install/setup up Geant4 on MacOS (tested on 11.4)
 
