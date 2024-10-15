@@ -33,10 +33,11 @@
 
 #include "G4MagneticField.hh"
 #include "globals.hh"
+#include "G4ThreeVector.hh"
 
 class FASER2Field : public G4MagneticField {
 public:
-  FASER2Field();
+  FASER2Field(G4ThreeVector magField);
   ~FASER2Field();
 
   virtual void GetFieldValue( const  double Point[3], double *Bfield ) const;
@@ -51,6 +52,8 @@ public:
   G4double fymin;
   G4double fxmax;
   G4double fxmin;
+
+void SetFieldValue(G4ThreeVector magField);
 
 private:
 

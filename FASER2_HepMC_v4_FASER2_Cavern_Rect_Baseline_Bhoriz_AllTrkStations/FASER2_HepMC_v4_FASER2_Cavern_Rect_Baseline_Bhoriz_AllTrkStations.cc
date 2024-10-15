@@ -58,7 +58,6 @@ int main(int argc,char** argv)
   }
 
   // User Verbose output class
-  //
   G4VSteppingVerbose* verbosity = new FASER2SteppingVerbose;
   G4VSteppingVerbose::SetInstance(verbosity);
 
@@ -95,6 +94,8 @@ int main(int argc,char** argv)
   //
   G4UserSteppingAction* stepping_action = new FASER2SteppingAction;
   runManager->SetUserAction(stepping_action);
+
+  runManager->Initialize();
 
   G4VisManager* visManager = new G4VisExecutive;
   visManager->Initialize();

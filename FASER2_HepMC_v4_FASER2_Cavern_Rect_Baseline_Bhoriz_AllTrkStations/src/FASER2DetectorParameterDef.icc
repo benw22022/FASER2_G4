@@ -37,6 +37,10 @@ fexpHall_z = 50*m;
 //fmagcase_rmax =  130.*cm;
 //fmag_rmax =  100.*cm;
 
+fmagField_x = 0.*tesla;
+fmagField_y = 1.*tesla;  // Sim will be super slow if not changed by macro if 9999
+fmagField_z = 0.*tesla;
+
 fmag1_dz =  4.*m;
 fmag1_locz = 10.1*m;
 fmag_xmax =  150.*cm;

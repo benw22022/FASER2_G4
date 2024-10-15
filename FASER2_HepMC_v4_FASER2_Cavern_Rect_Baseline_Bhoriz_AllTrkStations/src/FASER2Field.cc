@@ -32,17 +32,13 @@
 #include "FASER2Field.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-FASER2Field::FASER2Field()
+FASER2Field::FASER2Field(G4ThreeVector magField)
  : G4MagneticField()
 {
-  //fBz = 3.0*tesla;
-  fBz = 0;
-  /*
-  fBy = 0;
-  fBx = 1*tesla;
-  */
-  fBy = 1*tesla;
-  fBx = 0;
+  fBx = magField.getX();
+  fBy = magField.getY();
+  fBz = magField.getZ();
+  
   frmax_sq = sqr(1.*m);
   fxmax = 100.*m;
   fxmin = -100.*m;
@@ -84,3 +80,12 @@ void FASER2Field::GetFieldValue(const double Point[3],double *Bfield) const
     Bfield[0] = 0.;
     Bfield[2] = 0.;
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void FASER2Field::SetFieldValue(G4ThreeVector magField)
+{
+  fBx = magField.getX()*tesla;
+  fBy = magField.getY()*tesla;
+  fBz = magField.getZ()*tesla; 
+}
+

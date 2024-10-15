@@ -28,6 +28,10 @@
 //
 //
 
+G4double fmagField_x;
+G4double fmagField_y;
+G4double fmagField_z;
+
 G4double fexpHall_x;
 G4double fexpHall_y;
 G4double fexpHall_z;

@@ -56,18 +56,27 @@
 #include "FASER2TrackerParametrisation.hh"
 #include "FASER2TrackerSD.hh"
 #include "FASER2Detector.hh"
+// Include necessary headers
+#include "G4UniformMagField.hh"
+#include "G4UImessenger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+#include <G4GlobalMagFieldMessenger.hh>
+#include "params.hh"
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2DetectorConstruction::FASER2DetectorConstruction()
  : G4VUserDetectorConstruction()
 {
-#include "FASER2DetectorParameterDef.icc"
+    #include "FASER2DetectorParameterDef.icc"
+    messenger = new FASER2DetectorConstructionMessenger(this);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2DetectorConstruction::~FASER2DetectorConstruction()
 {
+    delete messenger;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -140,7 +149,6 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   experimentalHall_log-> SetVisAttributes(experimentalHallVisAtt);
 
 
-
   //------------------------------ Magnet 1
   /*
   G4VSolid* magcase_box1 = new G4Box("magcase_box1", fmag_xmax+15.*cm, fmag_ymax+15.*cm, (fmag1_dz/2.)-1*cm);
@@ -164,7 +172,7 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
 
   
   G4VSolid* mag_box1 = new G4Box("mag_box1", fmag_xmax, fmag_ymax, fmag1_dz/2.);
-  G4LogicalVolume* mag_log1  = new G4LogicalVolume(mag_box1, fAir,"magT_L1",0,0,0);
+  mag_log1  = new G4LogicalVolume(mag_box1, fAir,"magT_L1",0,0,0);
   //G4VPhysicalVolume * mag_phys1 =
   new G4PVPlacement(0,G4ThreeVector(0,0,fmag1_locz+(fmag1_dz/2.)), mag_log1, "mag_phys1", experimentalHall_log, false, 0);
   G4VisAttributes* mag_logVisAtt1 = new G4VisAttributes(G4Colour(0.0,1.0,0.0,0.5));
@@ -172,22 +180,6 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   //mag_logVisAtt1->SetForceSolid(false);
   mag_log1->SetVisAttributes(mag_logVisAtt1);
   
-  
-  FASER2Field* myField1 = new FASER2Field;
-  myField1->fzmin=fmag1_locz;
-  myField1->fzmax=fmag1_locz+fmag1_dz;
-  myField1->fymin=fmag_ymin;
-  myField1->fymax=fmag_ymax;
-  myField1->fxmin=fmag_xmin;
-  myField1->fxmax=fmag_xmax;
-  G4FieldManager* localFieldMgr1 = new G4FieldManager(myField1);
-  localFieldMgr1->SetDetectorField(myField1);
-  localFieldMgr1->CreateChordFinder(myField1);
-  mag_log1->SetFieldManager(localFieldMgr1, true);
-  
-
-
-
   //------------------------------ Sensitive detectors
   G4Box* SD1_box = new G4Box("SD1_box", 10*m, 10*m, 0.1*mm);
   SD1_log = new G4LogicalVolume(SD1_box, fAir,"SD1_log");
@@ -220,27 +212,46 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
 
 
 void FASER2DetectorConstruction::ConstructSDandField(){
-  G4SDManager *sdman = G4SDManager::GetSDMpointer();
   
-  FASER2Detector* sensDet1 = new FASER2Detector("sensDet1");
-  SD1_log->SetSensitiveDetector(sensDet1);
-  sdman->AddNewDetector(sensDet1);
+  G4SDManager *sdman = G4SDManager::GetSDMpointer();
 
-  FASER2Detector* sensDet2 = new FASER2Detector("sensDet2");
-  SD2_log->SetSensitiveDetector(sensDet2);
-  sdman->AddNewDetector(sensDet2);
+  FASER2Field* magField1 = new FASER2Field(GeometricalParameters::Get()->GetSpectrometerMagnetField());
+  magField1->fzmin=fmag1_locz;
+  magField1->fzmax=fmag1_locz+fmag1_dz;
+  magField1->fymin=fmag_ymin;
+  magField1->fymax=fmag_ymax;
+  magField1->fxmin=fmag_xmin;
+  magField1->fxmax=fmag_xmax;
 
-  FASER2Detector* sensDet3 = new FASER2Detector("sensDet3");
-  SD3_log->SetSensitiveDetector(sensDet3);
-  sdman->AddNewDetector(sensDet3);
+  G4FieldManager* localFieldMgr1 = new G4FieldManager(magField1);
+  localFieldMgr1->SetDetectorField(magField1);
+  localFieldMgr1->CreateChordFinder(magField1);
+  mag_log1->SetFieldManager(localFieldMgr1, true);
+  
+  if (!detectorCreated){  //! Nasty hack alert! Done to avoid geant warnings when modifying field via macro. Would ideally make a proper field messenger!
 
-  FASER2Detector* sensDet4 = new FASER2Detector("sensDet4");
-  SD4_log->SetSensitiveDetector(sensDet4);
-  sdman->AddNewDetector(sensDet4);
+    detectorCreated = true;
 
-  FASER2Detector* sensDet5 = new FASER2Detector("sensDet5");
-  SD5_log->SetSensitiveDetector(sensDet5);
-  sdman->AddNewDetector(sensDet5);
+    FASER2Detector* sensDet1 = new FASER2Detector("sensDet1");
+    SD1_log->SetSensitiveDetector(sensDet1);
+    sdman->AddNewDetector(sensDet1);
+
+    FASER2Detector* sensDet2 = new FASER2Detector("sensDet2");
+    SD2_log->SetSensitiveDetector(sensDet2);
+    sdman->AddNewDetector(sensDet2);
+
+    FASER2Detector* sensDet3 = new FASER2Detector("sensDet3");
+    SD3_log->SetSensitiveDetector(sensDet3);
+    sdman->AddNewDetector(sensDet3);
+
+    FASER2Detector* sensDet4 = new FASER2Detector("sensDet4");
+    SD4_log->SetSensitiveDetector(sensDet4);
+    sdman->AddNewDetector(sensDet4);
+
+    FASER2Detector* sensDet5 = new FASER2Detector("sensDet5");
+    SD5_log->SetSensitiveDetector(sensDet5);
+    sdman->AddNewDetector(sensDet5);
+  }
 
 
 }

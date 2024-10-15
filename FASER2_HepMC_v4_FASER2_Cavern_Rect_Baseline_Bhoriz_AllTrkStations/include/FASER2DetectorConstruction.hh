@@ -33,6 +33,7 @@
 
 #include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
+#include "FASER2DetectorConstructionMessenger.hh"
 
 class G4VPhysicalVolume;
 class G4Material;
@@ -54,15 +55,20 @@ private:
   G4Material* fSilicon;
   G4Material* fScinti;
   G4Material* fLead;
-
+  
+  G4LogicalVolume* mag_log1;
   G4LogicalVolume* SD1_log;
   G4LogicalVolume* SD2_log;
   G4LogicalVolume* SD3_log;
   G4LogicalVolume* SD4_log;
   G4LogicalVolume* SD5_log;
   
+  bool detectorCreated{false};
+
   virtual void ConstructSDandField();
   
+  FASER2DetectorConstructionMessenger* messenger;
+
 };
 
 #endif

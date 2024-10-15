@@ -6,3 +6,8 @@
 *-build
 *.hepmc
 *.cache
+*.log
+*.pdf
+*.bash_history
+*logfile
+*.vscode

@@ -3,11 +3,11 @@ import os
 import argparse
 import sys
 
-def write_macro(hepmcfile, magnetic_field=100, nevents=1000, macro_name="proc_hepmc.in"):
+def write_macro(hepmcfile, magnetic_field=1, nevents=1000, macro_name="proc_hepmc.in", gui=False):
     
     file_contents = f"\
-    # /control/execute vis.mac\n\
-    /vis/scene/add/magneticField {magnetic_field}\n\
+    {'/control/execute vis.mac' if gui else ''}\n\
+    /magneticField/setField {magnetic_field}\n\
     /generator/select hepmcAscii\n\
     /generator/hepmcAscii/open {hepmcfile}\n\
     /generator/hepmcAscii/verbose 0\n\
@@ -19,7 +19,11 @@ def write_macro(hepmcfile, magnetic_field=100, nevents=1000, macro_name="proc_he
 
 def main(g4build_dir, input_dir, output_dir, bfield_strength):
     
-    hepmc_files = glob.glob(os.path.join(input_dir, "*.hepmc"))
+    # hepmc_files = glob.glob(os.path.join(input_dir, "*.hepmc"))
+    if input_dir.endswith(".hepmc"):
+        hepmc_files = [input_dir]
+    else:
+        hepmc_files = glob.glob(input_dir)
     
     os.makedirs(output_dir, exist_ok=True)
     
@@ -30,10 +34,10 @@ def main(g4build_dir, input_dir, output_dir, bfield_strength):
         print(f"Processesing {hepmc}...")
         
         os.makedirs("logs", exist_ok=True)
-        logfile_name = os.path.join("logs", f'B{bfield_strength:.3f}_{os.path.basename(hepmc).replace(".hepmc", ".log")}')
+        logfile_name = os.path.join("logs", f'B{bfield_strength:.3f}T_{os.path.basename(hepmc).replace(".hepmc", ".log")}')
         
-        os.system(f"./FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations proc_hepmc.in > {logfile_name} 2>&1") #TODO: Don't hard-code this
-        # os.system(f"./FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations proc_hepmc.in | tee {logfile_name}") #TODO: Don't hard-code this
+        # os.system(f"./FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations proc_hepmc.in > {logfile_name} 2>&1") #TODO: Don't hard-code this
+        os.system(f"./FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations proc_hepmc.in | tee {logfile_name}") #TODO: Don't hard-code this
 
         if not os.path.exists("output.root"):
             print(f"ERROR: No output.root file found when processesing {hepmc}. Check logfile: {logfile_name}")
@@ -50,9 +54,9 @@ def main(g4build_dir, input_dir, output_dir, bfield_strength):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("g4build", help='geant4 app build directory')
-    parser.add_argument("input", help='input directory')
+    parser.add_argument("input", help='input files')
     parser.add_argument("output", help='output directory')
-    parser.add_argument("-bfield", help='Magnetic field strength', default=100)
+    parser.add_argument("-bfield", help='Magnetic field strength in tesla', default=1)
     
     args = parser.parse_args()
     
