@@ -210,6 +210,14 @@ Note that the input location of the HepMC file is given by this line in `foresee
 /generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L5_Z480.hepmc
 ```
 
-The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station.
+The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station).
 
+## Changing magnetic field strength from macro
 
+The default magnetic field strength is 1 tesla, but you can specify the magnetic field in the steering macro by adding the line
+
+```bash
+/det/magnetField <your-value> tesla
+```
+
+***Note:*** The implemented messenger class is a bit janky, but is functional. I plan to update the code in future to do this better.
