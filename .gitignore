@@ -11,3 +11,4 @@
 *.bash_history
 *logfile
 *.vscode
+*.mozilla
