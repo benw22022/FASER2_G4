@@ -95,7 +95,7 @@ int main(int argc,char** argv)
   G4UserSteppingAction* stepping_action = new FASER2SteppingAction;
   runManager->SetUserAction(stepping_action);
 
-  runManager->Initialize();
+  // runManager->Initialize();
 
   G4VisManager* visManager = new G4VisExecutive;
   visManager->Initialize();

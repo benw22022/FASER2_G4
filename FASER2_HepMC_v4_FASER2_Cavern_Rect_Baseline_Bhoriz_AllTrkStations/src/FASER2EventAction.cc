@@ -220,9 +220,11 @@ FASER2EventAction::FASER2EventAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2EventAction::~FASER2EventAction()
-{
+{ 
+  // G4cout << "Deleting FASER2EventAction - writing manager and closing file" << G4endl;
   man->Write();
   man->CloseFile();
+  // G4cout << "Finished writing output" << G4endl;
 
 }
 
@@ -272,11 +274,15 @@ void FASER2EventAction::EndOfEventAction(const G4Event* evt)
     G4int charge_m=0;
     G4int charge_h=0;
     
+    // G4cout << "Number of hits in collecion: " << hc->GetSize() << G4endl;
     
     man->FillNtupleIColumn(isd,0,evt->GetEventID());
     
     for (unsigned int i = 0; i < hc->GetSize(); ++i) {
       auto hit = static_cast<FASER2DetectorHit *>(hc->GetHit(i));
+
+      // G4cout << "Processed hit " << i << " -> " << hit->GetX() << hit->GetY() << hit->GetZ() << hit->GetEnergy() << G4endl;
+
       //G4cout << "hitX: " << hit->GetX() << G4endl;
       //G4cout << "hit x: " << hit->GetX() << " y: " << hit->GetY() << " z: " << hit->GetZ() << " E: " << hit->GetEnergy() << " ID: " << hit->GetPDGID() << G4endl;     
       if (hit->GetEnergy() < 1)continue;

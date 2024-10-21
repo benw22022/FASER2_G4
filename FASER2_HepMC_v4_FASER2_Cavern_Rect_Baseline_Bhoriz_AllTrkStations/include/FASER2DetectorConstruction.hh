@@ -37,6 +37,7 @@
 
 class G4VPhysicalVolume;
 class G4Material;
+class FASER2Detector;
 
 class FASER2DetectorConstruction : public G4VUserDetectorConstruction {
 public:
@@ -63,7 +64,16 @@ private:
   G4LogicalVolume* SD4_log;
   G4LogicalVolume* SD5_log;
   
-  bool detectorCreated{false};
+  FASER2Detector* sensDet1;
+  FASER2Detector* sensDet2;
+  FASER2Detector* sensDet3;
+  FASER2Detector* sensDet4;
+  FASER2Detector* sensDet5;
+
+  G4VPhysicalVolume * experimentalHall_phys;
+
+  bool detectorCreated1{false};
+  bool detectorCreated2{false};
 
   virtual void ConstructSDandField();
   
