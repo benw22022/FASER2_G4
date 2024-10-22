@@ -220,4 +220,14 @@ The default magnetic field strength is 1 tesla, but you can specify the magnetic
 /det/magnetField <your-value> tesla
 ```
 
+You'll also need to disable visualisation, i.e. you shouldn't include the `vis.mac` file - an example macro you might use would be
+
+```bash
+/det/magnetField 1 tesla
+/generator/select hepmcAscii
+/generator/hepmcAscii/open /path/to/hepmc
+/generator/hepmcAscii/verbose 0
+/run/beamOn 1000
+```
+
 ***Note:*** The implemented messenger class is a bit janky, but is functional. I plan to update the code in future to do this better.
