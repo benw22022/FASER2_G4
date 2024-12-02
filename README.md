@@ -7,7 +7,7 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 
 ## Install/setup up Geant4 on lxplus (tested with LCG_101 view)
 
-Setup G4 and enviroment from LCG:
+Setup G4 and environment from LCG:
 
 ```bash
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
