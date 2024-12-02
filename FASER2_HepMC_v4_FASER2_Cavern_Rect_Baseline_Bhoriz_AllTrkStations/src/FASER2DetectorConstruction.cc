@@ -62,6 +62,7 @@
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include <G4GlobalMagFieldMessenger.hh>
 #include "params.hh"
+#include "G4GDMLParser.hh"
 
 
 
@@ -211,6 +212,13 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
    detectorCreated1 = true;
   }
   
+
+  // ------------ GDML dump
+  // G4GDMLParser* gdmlParser = new G4GDMLParser();  
+  // std::remove("FASER2_baseline.gdml"); // delete file
+  // gdmlParser->Write("FASER2_baseline.gdml", experimentalHall_phys);
+  // delete gdmlParser;
+
   return experimentalHall_phys;
 }
 
