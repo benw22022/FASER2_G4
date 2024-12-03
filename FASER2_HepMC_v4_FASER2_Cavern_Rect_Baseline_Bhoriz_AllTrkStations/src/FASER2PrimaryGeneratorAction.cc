@@ -34,7 +34,6 @@
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "HepMCG4AsciiReader.hh"
-#include "HepMCG4PythiaInterface.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2PrimaryGeneratorAction::FASER2PrimaryGeneratorAction()
@@ -51,7 +50,6 @@ FASER2PrimaryGeneratorAction::FASER2PrimaryGeneratorAction()
 #endif
   fGentypeMap["particleGun"] = fParticleGun;
   fGentypeMap["hepmcAscii"] = fHepmcAscii;
-  fGentypeMap["pythia"] = fPythiaGen;
 
   fMessenger= new FASER2PrimaryGeneratorMessenger(this);
 }

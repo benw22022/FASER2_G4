@@ -39,6 +39,7 @@ G4bool FASER2Detector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist){
   G4ThreeVector posHit = preStepPoint->GetPosition();
   G4int pdgid = track->GetParticleDefinition()->GetPDGEncoding();
   G4double energy = track->GetDynamicParticle()->Get4Momentum().e();
+  G4double charge = track->GetDynamicParticle()->GetCharge();
   //G4cout << "track pos: " << posHit << ", pdgid: " << pdgid << G4endl;
 
   FASER2DetectorHit* tmpHit = new FASER2DetectorHit();
@@ -46,7 +47,7 @@ G4bool FASER2Detector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist){
   tmpHit->SetPosition(posHit[0]/mm, posHit[1]/mm, posHit[2]/mm); // in mm
   tmpHit->SetPDGID(pdgid);
   tmpHit->SetEnergy(energy/GeV);
-  
+  tmpHit->SetCharge(charge);
   fTmpHits.push_back(tmpHit);
 
   return 0;

@@ -40,19 +40,20 @@
 #include "G4VPhysicalVolume.hh"
 #include "FASER2CalorimeterROGeometry.hh"
 #include "FASER2DummySD.hh"
+#include "params.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2CalorimeterROGeometry::FASER2CalorimeterROGeometry()
   : G4VReadOutGeometry()
 {
-#include "FASER2DetectorParameterDef.icc"
+// #include "FASER2DetectorParameterDef.icc"
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2CalorimeterROGeometry::FASER2CalorimeterROGeometry(G4String aString)
   : G4VReadOutGeometry(aString)
 {
-#include "FASER2DetectorParameterDef.icc"
+// #include "FASER2DetectorParameterDef.icc"
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -71,7 +72,7 @@ G4VPhysicalVolume* FASER2CalorimeterROGeometry::Build()
 
   //Builds the ReadOut World:
   G4Box* ROWorldBox = new G4Box("ROWorldBox",
-                                fexpHall_x, fexpHall_y, fexpHall_z);
+                                GeometricalParameters::Get()->fexpHall_x, GeometricalParameters::Get()->fexpHall_y, GeometricalParameters::Get()->fexpHall_z);
   G4LogicalVolume* ROWorldLog = new G4LogicalVolume(ROWorldBox, dummyMat,
                                                     "ROWorldLogical", 0, 0, 0);
   G4PVPlacement* ROWorldPhys = new G4PVPlacement(0, G4ThreeVector(),
@@ -80,8 +81,8 @@ G4VPhysicalVolume* FASER2CalorimeterROGeometry::Build()
                                                  0, false, 0);
   // Calorimeter volume:
   G4VSolid* caloROtub
-    = new G4Tubs("caloROtub", fcaloTubs_rmin, fcaloTubs_rmax,
-                 fcaloTubs_dz, fcaloTubs_sphi, fcaloTubs_dphi);
+    = new G4Tubs("caloROtub", GeometricalParameters::Get()->fcaloTubs_rmin, GeometricalParameters::Get()->fcaloTubs_rmax,
+                GeometricalParameters::Get()->fcaloTubs_dz, GeometricalParameters::Get()->fcaloTubs_sphi, GeometricalParameters::Get()->fcaloTubs_dphi);
   G4LogicalVolume* caloROlog
     = new G4LogicalVolume(caloROtub, dummyMat, "caloROlogical",0,0,0);
   G4VPhysicalVolume* caloROphys
@@ -93,23 +94,23 @@ G4VPhysicalVolume* FASER2CalorimeterROGeometry::Build()
   // -------------------------------
   // Phi division first: 48 sectors
   G4VSolid* caloROphiDivisionTub
-    = new G4Tubs("caloROphiDivision", fcaloCell_rmin, fcaloCell_rmax,
-                 fcaloCell_dz, fcaloCell_sphi, fcaloCell_dphi);
+    = new G4Tubs("caloROphiDivision", GeometricalParameters::Get()->fcaloCell_rmin, GeometricalParameters::Get()->fcaloCell_rmax,
+                 GeometricalParameters::Get()->fcaloCell_dz, GeometricalParameters::Get()->fcaloCell_sphi, GeometricalParameters::Get()->fcaloCell_dphi);
   G4LogicalVolume* caloROphiDivisionLog
     = new G4LogicalVolume(caloROphiDivisionTub,
                           dummyMat, "caloROphiDivisionLogical",0,0,0);
   G4VPhysicalVolume* caloROphiDivisionPhys
     = new G4PVReplica("caloROphiDivisionPhysical", caloROphiDivisionLog,
-                      caloROphys, kPhi, fsegmentsinPhi, fcaloCell_dphi);
+                      caloROphys, kPhi, GeometricalParameters::Get()->fsegmentsinPhi, GeometricalParameters::Get()->fcaloCell_dphi);
   // then z division: 20 slices:
   G4VSolid* caloROcellTub
-    = new G4Tubs("caloROcellTub", fcaloRing_rmin, fcaloRing_rmax,
-                 fcaloRing_dz, fcaloRing_sphi, fcaloRing_dphi);
+    = new G4Tubs("caloROcellTub", GeometricalParameters::Get()->fcaloRing_rmin, GeometricalParameters::Get()->fcaloRing_rmax,
+                 GeometricalParameters::Get()->fcaloRing_dz, GeometricalParameters::Get()->fcaloRing_sphi, GeometricalParameters::Get()->fcaloRing_dphi);
   G4LogicalVolume* caloROcellLog
     = new G4LogicalVolume(caloROcellTub, dummyMat, "caloROcellLogical",0,0,0);
   //  G4VPhysicalVolume * caloROcellPhys =
   new G4PVReplica("caloROcellPhysical", caloROcellLog, caloROphiDivisionPhys,
-                  kZAxis, fsegmentsinZ, 2.*fcaloRing_dz);
+                  kZAxis, GeometricalParameters::Get()->fsegmentsinZ, 2.*GeometricalParameters::Get()->fcaloRing_dz);
 
 
   //Flags the cells as sensitive .The pointer here serves

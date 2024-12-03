@@ -87,7 +87,7 @@ private:  // Dummy declarations to get rid of warnings ...
   virtual void ComputeDimensions(G4Polyhedra&, const G4int,
                          const G4VPhysicalVolume*) const {}
 
-#include "FASER2DetectorParameterDef.hh"
+// #include "FASER2DetectorParameterDef.hh"
 
 };
 

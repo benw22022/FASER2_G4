@@ -45,7 +45,7 @@
 #include "FASER2SteppingAction.hh"
 #include "FASER2SteppingVerbose.hh"
 #include "FASER2TrackingAction.hh"
-
+// #include "FASER2DetectorParameterDef.hh"
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 

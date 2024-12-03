@@ -1,7 +1,7 @@
 #include "FASER2DetectorConstructionMessenger.hh"
 #include "FASER2DetectorConstruction.hh"
 // #include "geometry/GeometricalParameters.hh"
-#include "FASER2DetectorParameterDef.hh"
+// #include "FASER2DetectorParameterDef.hh"
 
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithAString.hh"

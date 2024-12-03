@@ -43,9 +43,7 @@ public:
 
   virtual void BeginOfEventAction(const G4Event*);
   virtual void EndOfEventAction(const G4Event*);
-
-  G4AnalysisManager* man;
-  
+    
 private:
   G4int ftrackerCollID;
   G4int fcalorimeterCollID;

@@ -87,7 +87,7 @@ class FASER2TrackerParametrisation : public G4VPVParameterisation {
     virtual void ComputeDimensions(G4Polyhedra&, const G4int,
                            const G4VPhysicalVolume*) const {}
 
-#include "FASER2DetectorParameterDef.hh"
+// #include "FASER2DetectorParameterDef.hh"
 
 };
 

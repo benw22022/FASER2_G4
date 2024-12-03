@@ -70,7 +70,7 @@
 FASER2DetectorConstruction::FASER2DetectorConstruction()
  : G4VUserDetectorConstruction()
 {
-    #include "FASER2DetectorParameterDef.icc"
+    // #include "FASER2DetectorParameterDef.icc"
     messenger = new FASER2DetectorConstructionMessenger(this);
 }
 
@@ -139,7 +139,7 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
 
   //------------------------------ experimental hall
   G4Box* experimentalHall_box =
-         new G4Box("expHall_b", fexpHall_x, fexpHall_y, fexpHall_z);
+         new G4Box("expHall_b", GeometricalParameters::Get()->fexpHall_x, GeometricalParameters::Get()->fexpHall_y, GeometricalParameters::Get()->fexpHall_z);
   G4LogicalVolume* experimentalHall_log =
     new G4LogicalVolume(experimentalHall_box, fAir,"expHall_L", 0,0,0);
   // G4VPhysicalVolume * experimentalHall_phys =
@@ -165,7 +165,7 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   */
 
 
-  G4VSolid* DV_box = new G4Box("DV_box", fmag_xmax, fmag_ymax, 10./2.*m);
+  G4VSolid* DV_box = new G4Box("DV_box", GeometricalParameters::Get()->fmag_xmax, GeometricalParameters::Get()->fmag_ymax, 10./2.*m);
   G4LogicalVolume* DV_log  = new G4LogicalVolume(DV_box, fAir,"DV_log",0,0,0);
   new G4PVPlacement(0,G4ThreeVector(0,0,10./2.*m), DV_log, "DV_phys", experimentalHall_log, false, 0);
   G4VisAttributes* DV_logVisAtt = new G4VisAttributes(G4Colour(0.8,0.8,0.8,0.3));
@@ -174,10 +174,10 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   DV_log->SetVisAttributes(DV_logVisAtt);
 
   
-  G4VSolid* mag_box1 = new G4Box("mag_box1", fmag_xmax, fmag_ymax, fmag1_dz/2.);
+  G4VSolid* mag_box1 = new G4Box("mag_box1", GeometricalParameters::Get()->fmag_xmax, GeometricalParameters::Get()->fmag_ymax, GeometricalParameters::Get()->fmag1_dz/2.);
   mag_log1  = new G4LogicalVolume(mag_box1, fAir,"magT_L1",0,0,0);
   //G4VPhysicalVolume * mag_phys1 =
-  new G4PVPlacement(0,G4ThreeVector(0,0,fmag1_locz+(fmag1_dz/2.)), mag_log1, "mag_phys1", experimentalHall_log, false, 0);
+  new G4PVPlacement(0,G4ThreeVector(0,0,GeometricalParameters::Get()->fmag1_locz+(GeometricalParameters::Get()->fmag1_dz/2.)), mag_log1, "mag_phys1", experimentalHall_log, false, 0);
   G4VisAttributes* mag_logVisAtt1 = new G4VisAttributes(G4Colour(0.0,1.0,0.0,0.5));
   mag_logVisAtt1->SetForceWireframe(true);
   //mag_logVisAtt1->SetForceSolid(false);
@@ -186,23 +186,23 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   //------------------------------ Sensitive detectors
   G4Box* SD1_box = new G4Box("SD1_box", 10*m, 10*m, 0.1*mm);
   SD1_log = new G4LogicalVolume(SD1_box, fAir,"SD1_log");
-  G4VPhysicalVolume * SD1_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD1_locz), SD1_log, "SD1_phys", experimentalHall_log, false, 0);
+  G4VPhysicalVolume * SD1_phys = new G4PVPlacement(0, G4ThreeVector(0,0,GeometricalParameters::Get()->SD1_locz), SD1_log, "SD1_phys", experimentalHall_log, false, 0);
 
   G4Box* SD2_box = new G4Box("SD2_box", 10*m, 10*m, 0.1*mm);
   SD2_log = new G4LogicalVolume(SD2_box, fAir,"SD2_log");
-  G4VPhysicalVolume * SD2_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD2_locz), SD2_log, "SD2_phys", experimentalHall_log, false, 0);
+  G4VPhysicalVolume * SD2_phys = new G4PVPlacement(0, G4ThreeVector(0,0,GeometricalParameters::Get()->SD2_locz), SD2_log, "SD2_phys", experimentalHall_log, false, 0);
 
   G4Box* SD3_box = new G4Box("SD3_box", 10*m, 10*m, 0.1*mm);
   SD3_log = new G4LogicalVolume(SD3_box, fAir,"SD3_log");
-  G4VPhysicalVolume * SD3_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD3_locz), SD3_log, "SD3_phys", experimentalHall_log, false, 0);
+  G4VPhysicalVolume * SD3_phys = new G4PVPlacement(0, G4ThreeVector(0,0,GeometricalParameters::Get()->SD3_locz), SD3_log, "SD3_phys", experimentalHall_log, false, 0);
 
   G4Box* SD4_box = new G4Box("SD4_box", 10*m, 10*m, 0.1*mm);
   SD4_log = new G4LogicalVolume(SD4_box, fAir,"SD4_log");
-  G4VPhysicalVolume * SD4_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD4_locz), SD4_log, "SD4_phys", experimentalHall_log, false, 0);
+  G4VPhysicalVolume * SD4_phys = new G4PVPlacement(0, G4ThreeVector(0,0,GeometricalParameters::Get()->SD4_locz), SD4_log, "SD4_phys", experimentalHall_log, false, 0);
 
   G4Box* SD5_box = new G4Box("SD5_box", 10*m, 10*m, 0.1*mm);
   SD5_log = new G4LogicalVolume(SD5_box, fAir,"SD5_log");
-  G4VPhysicalVolume * SD5_phys = new G4PVPlacement(0, G4ThreeVector(0,0,SD5_locz), SD5_log, "SD5_phys", experimentalHall_log, false, 0);
+  G4VPhysicalVolume * SD5_phys = new G4PVPlacement(0, G4ThreeVector(0,0,GeometricalParameters::Get()->SD5_locz), SD5_log, "SD5_phys", experimentalHall_log, false, 0);
 
   
     
@@ -228,12 +228,12 @@ void FASER2DetectorConstruction::ConstructSDandField(){
   G4SDManager *sdman = G4SDManager::GetSDMpointer();
 
   FASER2Field* magField1 = new FASER2Field(GeometricalParameters::Get()->GetSpectrometerMagnetField());
-  magField1->fzmin=fmag1_locz;
-  magField1->fzmax=fmag1_locz+fmag1_dz;
-  magField1->fymin=fmag_ymin;
-  magField1->fymax=fmag_ymax;
-  magField1->fxmin=fmag_xmin;
-  magField1->fxmax=fmag_xmax;
+  magField1->fzmin=GeometricalParameters::Get()->fmag1_locz;
+  magField1->fzmax=GeometricalParameters::Get()->fmag1_locz+GeometricalParameters::Get()->fmag1_dz;
+  magField1->fymin=GeometricalParameters::Get()->fmag_ymin;
+  magField1->fymax=GeometricalParameters::Get()->fmag_ymax;
+  magField1->fxmin=GeometricalParameters::Get()->fmag_xmin;
+  magField1->fxmax=GeometricalParameters::Get()->fmag_xmax;
 
   G4FieldManager* localFieldMgr1 = new G4FieldManager(magField1);
   localFieldMgr1->SetDetectorField(magField1);

@@ -35,15 +35,45 @@
 
 #include "G4UserRunAction.hh"
 #include "globals.hh"
+#include "FASER2RunActionMessenger.hh"
+#include "G4AnalysisManager.hh"
+#include <map>
+#include <unordered_set>
 
 class G4Run;
 
 class FASER2RunAction : public G4UserRunAction {
+
 public:
   FASER2RunAction();
   ~FASER2RunAction();
 
   virtual void BeginOfRunAction(const G4Run*);
+  virtual void EndOfRunAction(const G4Run*);
+  
+  G4String GetOutputFileName() const;
+  void SetOutputFileName(const G4String fname);
+
+  G4AnalysisManager* man;
+
+  void FillHitsRow(G4double x, G4double y, G4double z, G4double E, G4int pdgc, G4double charge, G4int layernum);
+  void ClearHits();
+  G4int MergeHits(G4double xtol, G4double ytol);
+
+  private:
+    G4String foutputFileName;
+    FASER2RunActionMessenger* messenger;
+
+    mutable std::vector<G4double> m_hits_x;
+    mutable std::vector<G4double> m_hits_y;
+    mutable std::vector<G4double> m_hits_z;
+    mutable std::vector<G4double> m_hits_E;
+    mutable std::vector<G4int>    m_hits_pdgc;
+    mutable std::vector<G4double> m_hits_charge;
+    mutable std::vector<G4int>    m_hits_layernum;
+
+    std::set<G4int> FindHitsToMerge(G4double xtol, G4double ytol) const;
+
 };
 
 #endif

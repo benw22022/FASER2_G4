@@ -33,12 +33,13 @@
 #include "G4Tubs.hh"
 #include "G4VPhysicalVolume.hh"
 #include "FASER2CalorimeterParametrisation.hh"
+#include "params.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 FASER2CalorimeterParametrisation::FASER2CalorimeterParametrisation()
   : G4VPVParameterisation()
 {
-#include "FASER2DetectorParameterDef.icc"
+// #include "FASER2DetectorParameterDef.icc"
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -59,11 +60,11 @@ void FASER2CalorimeterParametrisation::ComputeDimensions
      (G4Tubs& calorimeterLayer, const G4int copyNo,
                                 const G4VPhysicalVolume*) const
 {
-  G4double innerRad = fcaloTubs_rmin +
-                      copyNo * (fabsorber_thick + fscinti_thick);
+  G4double innerRad = GeometricalParameters::Get()->fcaloTubs_rmin +
+                      copyNo * (GeometricalParameters::Get()->fabsorber_thick + GeometricalParameters::Get()->fscinti_thick);
+  calorimeterLayer.SetOuterRadius(innerRad + GeometricalParameters::Get()->fabsorber_thick);
   calorimeterLayer.SetInnerRadius(innerRad);
-  calorimeterLayer.SetOuterRadius(innerRad + fabsorber_thick);
-  calorimeterLayer.SetZHalfLength(fcaloTubs_dz);
-  calorimeterLayer.SetStartPhiAngle(fcaloTubs_sphi);
-  calorimeterLayer.SetDeltaPhiAngle(fcaloTubs_dphi);
+  calorimeterLayer.SetZHalfLength(GeometricalParameters::Get()->fcaloTubs_dz);
+  calorimeterLayer.SetStartPhiAngle(GeometricalParameters::Get()->fcaloTubs_sphi);
+  calorimeterLayer.SetDeltaPhiAngle(GeometricalParameters::Get()->fcaloTubs_dphi);
 }

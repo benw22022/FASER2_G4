@@ -31,7 +31,7 @@
 #ifndef FASER2CalorimeterROGeometry_h
 #define FASER2CalorimeterROGeometry_h 1
 
-#include "G4VReadOutGeometry.hh"
+// #include "G4VReadOutGeometry.hh"
 
 class FASER2CalorimeterROGeometry : public G4VReadOutGeometry {
 public:
@@ -42,7 +42,7 @@ public:
 private:
   virtual G4VPhysicalVolume* Build();
 
-#include "FASER2DetectorParameterDef.hh"
+// #include "FASER2DetectorParameterDef.hh"
 
 };
 

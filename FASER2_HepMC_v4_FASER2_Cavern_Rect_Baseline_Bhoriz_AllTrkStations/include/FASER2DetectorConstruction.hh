@@ -49,7 +49,7 @@ public:
 private:
   void DefineMaterials();
   
-#include "FASER2DetectorParameterDef.hh"
+// #include "FASER2DetectorParameterDef.hh"
 
   G4Material* fAir;
   G4Material* fAr;
