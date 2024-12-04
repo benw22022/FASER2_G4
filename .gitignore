@@ -3,3 +3,15 @@
 **.o
 .bashrc
 .inputrc
+*-build
+*.hepmc
+*.cache
+*.log
+*.pdf
+*.bash_history
+*logfile
+*.vscode
+*.mozilla
+*.local
+*.png
+*__pycache__*

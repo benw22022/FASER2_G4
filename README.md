@@ -1,5 +1,8 @@
 # FASER2_G4
 
+This is my fork of Josh's original [FASER2 Geant4 repo](https://github.com/joshmcfayden/FASER2_G4/tree/main) - warning some documentation may be inconsistent!
+It's on my todo list to add more up to date documentation to this README
+
 This package creates simple G4 geometries for FASER2 sensitivity studies.
 Before setting this up you need to be able to create HepMC files using my modified [FORESEE package](https://github.com/joshmcfayden/FORESEE).
 
@@ -7,7 +10,7 @@ The HepMC files are passed to G4 via the `/generator/hepmcAscii/open` flag - see
 
 ## Install/setup up Geant4 on lxplus (tested with LCG_101 view)
 
-Setup G4 and enviroment from LCG:
+Setup G4 and environment from LCG:
 
 ```bash
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
@@ -160,10 +163,10 @@ sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
-All the main things to control can be edited from the `ExN04DetectorParameterDef.icc` and `ExN04Field.cc` files.
+All the main things to control can be edited from the `params.cc` file
 TODO: Make this configurable from macro file.
 
-For example magnet geometry is controlled in `newGeo/src/ExN04DetectorParameterDef.icc` by changing:
+For example magnet geometry is controlled in `newGeo/src/params.cc`:
 ```cpp
 fmagcase_rmax =  130.*cm; // doesn't matter what value this is it's only used for visualisation 
 fmag_rmax =  100.*cm;
@@ -176,11 +179,6 @@ fmag2_locz = 5.5*m;
 
 fmag3_dz =  2.5*m;
 fmag3_locz = 8.5*m;
-```
-
-And then the magnetic field strengths are controlled in `newGeo/src/ExN04Field.cc` by:
-```cpp
-  fBx = 1*tesla;
 ```
 
 Once you have the geometry and magnetic fields you want you can compile:
@@ -210,6 +208,24 @@ Note that the input location of the HepMC file is given by this line in `foresee
 /generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L5_Z480.hepmc
 ```
 
-The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station.
+The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station).
 
+## Changing magnetic field strength from macro
 
+The default magnetic field strength is 1 tesla, but you can specify the magnetic field in the steering macro by adding the line
+
+```bash
+/det/magnetField <your-value> tesla
+```
+
+You'll also need to disable visualisation, i.e. you shouldn't include the `vis.mac` file - an example macro you might use would be
+
+```bash
+/det/magnetField 1 tesla
+/generator/select hepmcAscii
+/generator/hepmcAscii/open /path/to/hepmc
+/generator/hepmcAscii/verbose 0
+/run/beamOn 1000
+```
+
+***Note:*** The implemented messenger class is a bit janky, but is functional. I plan to update the code in future to do this better.

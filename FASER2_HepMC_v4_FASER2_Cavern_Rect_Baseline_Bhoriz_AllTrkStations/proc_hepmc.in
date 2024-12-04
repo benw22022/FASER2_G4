@@ -1,0 +1,6 @@
+    
+    /magneticField/setField 1
+    /generator/select hepmcAscii
+    /generator/hepmcAscii/open /home/atreus/DarkPhotonHepMC/m0.01GeV/events_14TeV_m0.01GeV_c0.001_to_e_e_s1.hepmc
+    /generator/hepmcAscii/verbose 0
+    /run/beamOn 1000
