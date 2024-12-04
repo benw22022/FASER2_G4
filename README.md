@@ -1,5 +1,8 @@
 # FASER2_G4
 
+This is my fork of Josh's original [FASER2 Geant4 repo](https://github.com/joshmcfayden/FASER2_G4/tree/main) - warning some documentation may be inconsistent!
+It's on my todo list to add more up to date documentation to this README
+
 This package creates simple G4 geometries for FASER2 sensitivity studies.
 Before setting this up you need to be able to create HepMC files using my modified [FORESEE package](https://github.com/joshmcfayden/FORESEE).
 
@@ -160,10 +163,10 @@ sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
 ```
 
 
-All the main things to control can be edited from the `ExN04DetectorParameterDef.icc` and `ExN04Field.cc` files.
+All the main things to control can be edited from the `params.cc` file
 TODO: Make this configurable from macro file.
 
-For example magnet geometry is controlled in `newGeo/src/ExN04DetectorParameterDef.icc` by changing:
+For example magnet geometry is controlled in `newGeo/src/params.cc`:
 ```cpp
 fmagcase_rmax =  130.*cm; // doesn't matter what value this is it's only used for visualisation 
 fmag_rmax =  100.*cm;
@@ -176,11 +179,6 @@ fmag2_locz = 5.5*m;
 
 fmag3_dz =  2.5*m;
 fmag3_locz = 8.5*m;
-```
-
-And then the magnetic field strengths are controlled in `newGeo/src/ExN04Field.cc` by:
-```cpp
-  fBx = 1*tesla;
 ```
 
 Once you have the geometry and magnetic fields you want you can compile:
