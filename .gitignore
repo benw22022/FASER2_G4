@@ -13,3 +13,5 @@
 *.vscode
 *.mozilla
 *.local
+*.png
+*__pycache__*
