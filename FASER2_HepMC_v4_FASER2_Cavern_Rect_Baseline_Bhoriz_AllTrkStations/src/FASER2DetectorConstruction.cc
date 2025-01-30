@@ -90,6 +90,7 @@ void FASER2DetectorConstruction::DefineMaterials()
   fAir = nistManager->FindOrBuildMaterial("G4_AIR");
   fLead = nistManager->FindOrBuildMaterial("G4_Pb");
   fSilicon = nistManager->FindOrBuildMaterial("G4_Si");
+  fHelium = nistManager->FindOrBuildMaterial("G4_He");
 
   G4double a, z, density;
   G4int nel;
@@ -166,7 +167,7 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
 
 
   G4VSolid* DV_box = new G4Box("DV_box", GeometricalParameters::Get()->fmag_xmax, GeometricalParameters::Get()->fmag_ymax, 10./2.*m);
-  G4LogicalVolume* DV_log  = new G4LogicalVolume(DV_box, fAir,"DV_log",0,0,0);
+  G4LogicalVolume* DV_log  = new G4LogicalVolume(DV_box, fHelium,"DV_log",0,0,0);
   new G4PVPlacement(0,G4ThreeVector(0,0,10./2.*m), DV_log, "DV_phys", experimentalHall_log, false, 0);
   G4VisAttributes* DV_logVisAtt = new G4VisAttributes(G4Colour(0.8,0.8,0.8,0.3));
   DV_logVisAtt->SetForceWireframe(true);
@@ -216,7 +217,7 @@ G4VPhysicalVolume* FASER2DetectorConstruction::Construct()
   // ------------ GDML dump
   // G4GDMLParser* gdmlParser = new G4GDMLParser();  
   // std::remove("FASER2_baseline.gdml"); // delete file
-  // gdmlParser->Write("FASER2_baseline.gdml", experimentalHall_phys);
+  // gdmlParser->Write("FASER2_HeDv.gdml", experimentalHall_phys);
   // delete gdmlParser;
 
   return experimentalHall_phys;

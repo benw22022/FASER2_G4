@@ -56,6 +56,7 @@ private:
   G4Material* fSilicon;
   G4Material* fScinti;
   G4Material* fLead;
+  G4Material* fHelium;
   
   G4LogicalVolume* mag_log1;
   G4LogicalVolume* SD1_log;
