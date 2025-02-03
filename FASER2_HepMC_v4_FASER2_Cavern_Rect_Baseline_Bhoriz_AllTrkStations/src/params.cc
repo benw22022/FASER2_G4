@@ -22,18 +22,25 @@ GeometricalParameters::GeometricalParameters()
   fmagField_z = 0.*tesla;
 
   fmag1_dz =  4.*m;
-  fmag1_locz = 10.1*m;
+  // fmag1_locz = 10.1*m;
+  fmag1_locz = 11.5*m;
   fmag_xmax =  150.*cm;
   fmag_xmin =  -150.*cm;
   fmag_ymax =  50.*cm;
   fmag_ymin =  -50.*cm;
 
   // For detector
+  // SD1_locz = 10.05*m;
+  // SD2_locz = 14.15*m;
+  // SD3_locz = 15.*m;
+  // SD4_locz = 16.*m;
+  // SD5_locz = 20.*m;
+
   SD1_locz = 10.05*m;
-  SD2_locz = 14.15*m;
-  SD3_locz = 15.*m;
-  SD4_locz = 16.*m;
-  SD5_locz = 20.*m;
+  SD2_locz = 11*m;
+  SD3_locz = 15.5*m;
+  SD4_locz = 19.5*m;
+  SD5_locz = 20.5*m;
 
   ftrkTubs_rmax =  1.3*m;
   ftrkTubs_rmin =  1.*m;
