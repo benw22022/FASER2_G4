@@ -46,6 +46,13 @@ EventInformation::EventInformation(G4int nu_pdgc, G4int target_pdgc, G4LorentzVe
 
 EventInformation::~EventInformation()
 {
+    fnu_pdgc = 0;
+    ftarget_pdgc = 0;
+    fvertex_pos = {0,0,0,0};
+    fnu_p4 = {0,0,0,0};
+    fCCLepton_p4 = {0,0,0,0};
+    fCCLepton_pdgc = -999;
+    fisCCInteraction = 0;
 }
 
 

@@ -95,10 +95,10 @@ class EventInformation : public G4VUserEventInformation {
     void Print() const override;
 
   private:
-    G4int fnu_pdgc;
-    G4int ftarget_pdgc;
-    G4LorentzVector fvertex_pos;
-    G4LorentzVector fnu_p4;
+    G4int fnu_pdgc{0};
+    G4int ftarget_pdgc{0};
+    G4LorentzVector fvertex_pos{0,0,0,0};
+    G4LorentzVector fnu_p4{0,0,0,0};
     G4LorentzVector fCCLepton_p4{0,0,0,0};
     G4int fCCLepton_pdgc{-999};
     bool fisCCInteraction{0};
