@@ -154,6 +154,6 @@ void FASER2EventAction::EndOfEventAction(const G4Event* evt)
   {
     std::cout << "No hits for event " << eventNumber << std::endl;
   }
-  std::cout << "Number of events = " << numberOfHits << std::endl;
+  std::cout << "Number of hits = " << numberOfHits << std::endl;
   man->AddNtupleRow(0);
 }
