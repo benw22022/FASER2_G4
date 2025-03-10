@@ -16,31 +16,26 @@ Setup G4 and environment from LCG:
 source /cvmfs/sft.cern.ch/lcg/views/LCG_101/x86_64-centos7-gcc10-opt/setup.sh
 ```
 
-Get FASER2 G4 geometry and create "newGeo" version:
+Get FASER2 G4 geometry:
 
 ```bash
-git clone https://github.com/joshmcfayden/FASER2_G4.git
-cp -r FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
-cd newGeo
-mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
-sed -i 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
+git clone https://github.com/benw22022/FASER2_G4.git
+cd FASER2_G4
 ```
 
 Create build directory and compile:
 
 ```bash
-cd ..
-mkdir newGeo-build
-cd newGeo-build
-cmake -DCMAKE_BUILD_TYPE=Debug ../newGeo
+mkdir build
+cd build
+cmake ../FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations
 make
 ```
 
 Test run:
 
 ```bash
-cp ../FASER2_G4/FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/* .
-./newGeo hepmc_ascii.in
+./FASER2_HepMC_v4_FASER2_Cavern_Rect_Baseline_Bhoriz_AllTrkStations
 ```
 
 Once compiled, to just run for every new login you just need the following setup line:
@@ -154,15 +149,6 @@ cd -
 
 ## Build FASER2 geometry:
 
-Start by copying the `FASER2_HepMC_v4_FASER2_Default_1stTrkStation` source folder to a new folder, e.g. `newGeo`.
-```bash
-cp -r FASER2_HepMC_v4_FASER2_Default_1stTrkStation newGeo
-cd newGeo
-mv FASER2_HepMC_v4_FASER2_Default_1stTrkStation.cc newGeo.cc
-sed -i '' -e 's/FASER2_HepMC_v4_FASER2_Default_1stTrkStation/newGeo/g' *.*
-```
-
-
 All the main things to control can be edited from the `params.cc` file
 TODO: Make this configurable from macro file.
 
@@ -181,34 +167,28 @@ fmag3_dz =  2.5*m;
 fmag3_locz = 8.5*m;
 ```
 
-Once you have the geometry and magnetic fields you want you can compile:
+## Converting HepMC2 → HepMC3 Files
+
+This code has been updated to run over the HepMC3 file standard and will not work with older HepMC2 files
+To convert your existing HepMC2 files to HepMC3 you can use the [`ConvertExample`](https://gitlab.cern.ch/hepmc/HepMC3/-/tree/master/examples/ConvertExample?ref_type=heads) application in the HepMC3 GitLab repository.
+
+A precompiled HepMC3 executable is available from CERNBox here: <https://cernbox.cern.ch/s/zYYO3gGmawUFagh>
+
+This should work on any el9 machine with `cvmfs` mounted
+
+Once you have copied the tar file from CERNBox, the conversion script can be run by doing:
+
 ```bash
-cd ..
-mkdir newGeo-build
-cd newGeo-build
-cp ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.in ../FASER2_HepMC_v4_FASER2_Default_1stTrkStation-build/*.mac .
-cmake -DHEPMC_LIBRARIES=<PATH TO HEPMC>/lib/libHepMC.dylib -DHEPMC_INCLUDE_DIR=<PATH TO HEPMC> ../newGeo
-make
+tar -xvf HepMC3.tar 
+source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-el9-gcc11-opt/setup.sh
+python3 convert_hepmc.py HepMC3/hepmc3-build/outputs/bin/convert_example.exe /path/to/hepmc2_files /folder/to/put/hepmc3
 ```
 
-And now we are finally ready to run!
+The `convert_hepmc.py` script takes three positional arguments:
 
-To run just a few events of a HepMC file and keep the visualisation open do:
-```bash
-./newGeo
-```
-
-To run over 1M events in HepMC file and close the visualisation do:
-```bash
-./newGeo foresee_hepmc_ascii_1M.in
-```
-
-Note that the input location of the HepMC file is given by this line in `foresee_hepmc_ascii.in`/`foresee_hepmc_ascii_1M.in`:
-```
-/generator/hepmcAscii/open /Users/mcfayden/Work/FASER/FASER2/FORESEE/output_faser2_D2_L5_Z480.hepmc
-```
-
-The output of this run is stored in a ROOT ntuple with filename `output.root` and tree `Hits` which contains the positive and negatively charged electron 4-momenta for specific plane in the z-direction (in this example the position of the 1st tracker station).
+1. The path to the `convert_example.exe` executable (this is in the `outputs/bin/convert_example.exe` of the HepMC build directory).
+2. The path to the folder containing the HepMC2 files that you would like to convert to HepMC3 - files must have the `.hepmc` file extension.
+3. A path to a directory that you would like your new HepMC3 files to be written to (will create folder if it doesn't already exist). The new files will have the same name as your old ones execept that the file extension will be changed from `.hepmc` → `.hepmc3`.
 
 ## Changing magnetic field strength from macro
 
