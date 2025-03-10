@@ -15,3 +15,6 @@
 *.local
 *.png
 *__pycache__*
+*build/
+*.hepmc
+*.hepmc3
