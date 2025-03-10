@@ -74,7 +74,6 @@ void HepMCG4Interface::HepMC2G4(const std::shared_ptr<HepMC3::GenEvent> hepmcevt
   // std::cout << "In HepMC2G4 " << std::endl;
   int vtx_counter{0};
   for (const auto& vertex : hepmcevt->vertices()) {
-    
     // std::cout << "Checking out vertex " << vtx_counter << std::endl;
     vtx_counter++;
 
@@ -85,9 +84,10 @@ void HepMCG4Interface::HepMC2G4(const std::shared_ptr<HepMC3::GenEvent> hepmcevt
 
     int par_counter{0};
     for (const auto& particle : vertex->particles_in())  {
-
+      
+      qvtx=true; //!
       if (particle->end_vertex() && particle->status()==4) {
-        qvtx=true;
+        //! qvtx=true; //
         if (EventInformation::isPDGNeutrino(particle->pdg_id()))
         {
           eventInfo->SetNeutrinoPDG(particle->pdg_id());
