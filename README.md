@@ -188,7 +188,7 @@ The `convert_hepmc.py` script takes three positional arguments:
 
 1. The path to the `convert_example.exe` executable (this is in the `outputs/bin/convert_example.exe` of the HepMC build directory).
 2. The path to the folder containing the HepMC2 files that you would like to convert to HepMC3 - files must have the `.hepmc` file extension.
-3. A path to a directory that you would like your new HepMC3 files to be written to (will create folder if it doesn't already exist). The new files will have the same name as your old ones execept that the file extension will be changed from `.hepmc` → `.hepmc3`.
+3. A path to a directory that you would like your new HepMC3 files to be written to (will create folder if it doesn't already exist). The new files will have the same name as your old ones.
 
 ## Changing magnetic field strength from macro
 
