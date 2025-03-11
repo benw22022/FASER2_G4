@@ -22,7 +22,10 @@ def main(args):
     for i, fpath in enumerate(input_files):
         new_fpath = os.path.join(args.output, os.path.basename(fpath))
         os.system(f"./{args.exe} -i hepmc2 -o hepmc3 {fpath} {new_fpath} &> /dev/null")
-        print(f"{i+1} / {len(input_files)}: Written {new_fpath}")
+        if not os.path.exists(new_fpath):
+            print(f"Error: Was unable to write output file for {fpath}")
+        else:
+            print(f"{i+1} / {len(input_files)}: Written {new_fpath}")
     
     print("Done")
     
