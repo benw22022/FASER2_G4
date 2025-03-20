@@ -102,7 +102,7 @@ void HepMCG4Interface::HepMC2G4(const std::shared_ptr<HepMC3::GenEvent> hepmcevt
         // break;
       }
     }
-    if (!qvtx) continue;
+    // if (!qvtx) continue;
 
     // std::cout << "Found a vertex! " << vtx_counter << std::endl;
 

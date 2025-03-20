@@ -33,6 +33,7 @@
 
 #include "HepMCG4Interface.hh"
 #include "HepMC3/ReaderAscii.h"
+#include "HepMC3/Reader.h"
 #include <HepMC3/Print.h>
 
 
@@ -41,7 +42,7 @@ class HepMCG4AsciiReaderMessenger;
 class HepMCG4AsciiReader : public HepMCG4Interface {
 protected:
   G4String filename;
-  HepMC3::ReaderAscii* asciiInput;
+  HepMC3::Reader* asciiInput;
 
   G4int verbose;
   HepMCG4AsciiReaderMessenger* messenger;

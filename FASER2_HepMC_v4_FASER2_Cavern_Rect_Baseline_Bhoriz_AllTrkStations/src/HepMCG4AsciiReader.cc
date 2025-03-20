@@ -29,17 +29,63 @@
 //
 
 #include "HepMCG4AsciiReader.hh"
+#include "HepMC3/ReaderAsciiHepMC2.h"
 #include "HepMCG4AsciiReaderMessenger.hh"
 
 #include <iostream>
 #include <fstream>
 #include <memory>
 
+int GetHepMCVersionNumber(std::string filename)
+{
+  std::ifstream inputFile(filename);
+  if (!inputFile.is_open()) {
+      std::cerr << "Error: Could not open the file: " << filename << std::endl;
+      return 0;
+  }
+
+  std::string firstLine;
+  std::getline(inputFile, firstLine);
+  inputFile.close();
+
+  std::istringstream iss(firstLine);
+  std::string label, versionNumber;
+  iss >> label >> versionNumber;
+  
+  char firstDigit = '\0'; 
+
+  for (char ch : versionNumber) {
+      if (std::isdigit(ch)) {
+          firstDigit = ch;
+          break;
+      }
+  }
+
+  int major_version_number = firstDigit - '0';
+
+  std::cout << "major version number is " << major_version_number << std::endl; 
+  return major_version_number;
+}
+
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 HepMCG4AsciiReader::HepMCG4AsciiReader()
   :  filename("xxx.dat"), verbose(0)
 {
-  asciiInput = new HepMC3::ReaderAscii(filename.c_str());
+  int major_version_number = GetHepMCVersionNumber(filename);
+
+  if (major_version_number == 2) { 
+    std::cout << "Using HepMC2 reader" << std::endl;
+    asciiInput = new HepMC3::ReaderAsciiHepMC2(filename.c_str()); }
+  else if (major_version_number == 3) { 
+    std::cout << "Using HepMC3 reader" << std::endl;
+    asciiInput = new HepMC3::ReaderAscii(filename.c_str()); }
+  else{
+    G4cout << "WARNING: HepMC version is not 2 or 3: will try using the HepMC3 reader" << G4endl;
+    asciiInput = new HepMC3::ReaderAscii(filename.c_str()); 
+  }
+  
 
   messenger = new HepMCG4AsciiReaderMessenger(this);
 }
@@ -56,7 +102,18 @@ void HepMCG4AsciiReader::Initialize()
 {
   delete asciiInput;
 
-  asciiInput = new HepMC3::ReaderAscii(filename);
+  int major_version_number = GetHepMCVersionNumber(filename);
+
+  if (major_version_number == 2) { 
+    std::cout << "Using HepMC2 reader" << std::endl;
+    asciiInput = new HepMC3::ReaderAsciiHepMC2(filename.c_str()); }
+  else if (major_version_number == 3) { 
+    std::cout << "Using HepMC2 reader" << std::endl;
+    asciiInput = new HepMC3::ReaderAscii(filename.c_str()); }
+  else{
+    G4cout << "WARNING: HepMC version is not 2 or 3: will try using the HepMC3 reader" << G4endl;
+    asciiInput = new HepMC3::ReaderAscii(filename.c_str()); 
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

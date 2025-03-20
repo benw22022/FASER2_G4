@@ -15,3 +15,6 @@
 *.local
 *.png
 *__pycache__*
+HepMC3/*
+*.tar
+*.hepmc3
