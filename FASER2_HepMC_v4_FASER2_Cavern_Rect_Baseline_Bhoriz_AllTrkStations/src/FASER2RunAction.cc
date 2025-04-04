@@ -79,10 +79,16 @@ void FASER2RunAction::BeginOfRunAction(const G4Run* aRun)
   man->CreateNtupleDColumn("x",    m_hits_x);
   man->CreateNtupleDColumn("y",    m_hits_y);
   man->CreateNtupleDColumn("z",    m_hits_z);
+  man->CreateNtupleDColumn("px",   m_hits_px);
+  man->CreateNtupleDColumn("py",   m_hits_py);
+  man->CreateNtupleDColumn("pz",   m_hits_pz);
+  man->CreateNtupleDColumn("mass", m_hits_mass);
   man->CreateNtupleDColumn("E",    m_hits_E);
   man->CreateNtupleIColumn("pdgc", m_hits_pdgc);
   man->CreateNtupleDColumn("charge", m_hits_charge);
   man->CreateNtupleIColumn("layer", m_hits_layernum);
+  man->CreateNtupleIColumn("TrackID", m_hits_trackID);
+  man->CreateNtupleIColumn("ParentID", m_hits_parentID);
   man->FinishNtuple();  
 }
 
@@ -105,15 +111,21 @@ void FASER2RunAction::SetOutputFileName(G4String fname)
 }
 
 
-void FASER2RunAction::FillHitsRow(G4double x, G4double y, G4double z, G4double E, G4int pdgc, G4double charge, G4int layernum)
+void FASER2RunAction::FillHitsRow(G4double x, G4double y, G4double z, G4double px, G4double py, G4double pz, G4double m, G4double E, G4int pdgc, G4double charge, G4int layernum, G4int trackID, G4int parentID)
 {
   m_hits_x.push_back(x);
   m_hits_y.push_back(y);
   m_hits_z.push_back(z);
   m_hits_E.push_back(E);
+  m_hits_px.push_back(px);
+  m_hits_py.push_back(py);
+  m_hits_pz.push_back(pz);
+  m_hits_mass.push_back(m);
   m_hits_pdgc.push_back(pdgc);
   m_hits_charge.push_back(charge);
   m_hits_layernum.push_back(layernum);
+  m_hits_trackID.push_back(trackID);
+  m_hits_parentID.push_back(parentID);
 }
 
 
@@ -122,10 +134,16 @@ void FASER2RunAction::ClearHits()
   m_hits_x.clear();
   m_hits_y.clear();
   m_hits_z.clear();
+  m_hits_px.clear();
+  m_hits_py.clear();
+  m_hits_pz.clear();
+  m_hits_mass.clear();
   m_hits_E.clear();
   m_hits_pdgc.clear();
   m_hits_charge.clear();
   m_hits_layernum.clear();
+  m_hits_trackID.clear();
+  m_hits_parentID.clear();
 }
 
 

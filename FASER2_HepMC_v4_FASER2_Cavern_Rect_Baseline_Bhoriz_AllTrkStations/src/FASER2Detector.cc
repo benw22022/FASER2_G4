@@ -39,6 +39,10 @@ G4bool FASER2Detector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist){
   G4ThreeVector posHit = preStepPoint->GetPosition();
   G4int pdgid = track->GetParticleDefinition()->GetPDGEncoding();
   G4double energy = track->GetDynamicParticle()->Get4Momentum().e();
+  G4double px = track->GetDynamicParticle()->Get4Momentum().px();
+  G4double py = track->GetDynamicParticle()->Get4Momentum().py();
+  G4double pz = track->GetDynamicParticle()->Get4Momentum().pz();
+  G4double m = track->GetDynamicParticle()->Get4Momentum().m();
   G4double charge = track->GetDynamicParticle()->GetCharge();
   //G4cout << "track pos: " << posHit << ", pdgid: " << pdgid << G4endl;
 
@@ -48,7 +52,14 @@ G4bool FASER2Detector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist){
   tmpHit->SetPDGID(pdgid);
   tmpHit->SetEnergy(energy/GeV);
   tmpHit->SetCharge(charge);
+  tmpHit->SetPx(px/GeV);
+  tmpHit->SetPy(py/GeV);
+  tmpHit->SetPz(pz/GeV);
+  tmpHit->SetMass(m/GeV);
+  tmpHit->SetTrackID(track->GetTrackID());
+  tmpHit->SetParentID(track->GetParentID());
   fTmpHits.push_back(tmpHit);
+  
 
   return 0;
 }

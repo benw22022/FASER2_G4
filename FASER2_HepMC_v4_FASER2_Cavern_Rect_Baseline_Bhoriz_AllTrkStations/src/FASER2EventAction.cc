@@ -145,7 +145,7 @@ void FASER2EventAction::EndOfEventAction(const G4Event* evt)
       numberOfHits++;
       auto hit = static_cast<FASER2DetectorHit*>(hc->GetHit(i));
       if (hit->GetEnergy() < 1) continue;
-      runAction->FillHitsRow(hit->GetX(), hit->GetY(), hit->GetZ(), hit->GetEnergy(), hit->GetPDGID(), hit->GetCharge(), det_idx+1);
+      runAction->FillHitsRow(hit->GetX(), hit->GetY(), hit->GetZ(), hit->GetPx(), hit->GetPy(), hit->GetPz(), hit->GetMass(), hit->GetEnergy(), hit->GetPDGID(), hit->GetCharge(), det_idx+1, hit->GetTrackID(), hit->GetParentID());
     }
   }
   // G4int nMergedHits = runAction->MergeHits(17e-3, 580e-3); //TODO Don't hard code this!

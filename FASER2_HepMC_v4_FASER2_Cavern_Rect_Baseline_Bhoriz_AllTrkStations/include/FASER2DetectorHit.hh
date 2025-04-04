@@ -34,6 +34,29 @@ public:
     fCharge = charge;
   }
 
+  inline void SetPx(G4double px){
+    fPx = px;
+  }
+  
+  inline void SetPy(G4double py){
+    fPy = py;
+  }
+
+  inline void SetPz(G4double pz){
+    fPz = pz;
+  }
+
+  inline void SetMass(G4double mass){
+    fMass = mass;
+  }
+  inline void SetTrackID(G4int trackID){
+    fTrackID = trackID;
+  }
+  inline void SetParentID(G4int parentID){
+    fParentID = parentID;
+  }
+
+
   /// Get hit X position
   inline G4double GetX() const { return fPosX; }
   /// Get hit Y position
@@ -46,6 +69,18 @@ public:
   inline G4double GetEnergy() const { return fEnergy; }
   /// Get hit Charge
   inline G4double GetCharge() const { return fCharge; }
+  /// Get hit px
+  inline G4double GetPx() const { return fPx; }
+  /// Get hit py
+  inline G4double GetPy() const { return fPy; }
+  /// Get hit pz
+  inline G4double GetPz() const { return fPz; }
+  /// Get hit mass
+  inline G4double GetMass() const { return fMass; }
+  /// Get hit track ID
+  inline G4int GetTrackID() const { return fTrackID; }
+  /// Get hit parent ID
+  inline G4int GetParentID() const { return fParentID; }
 
 
 private:
@@ -61,6 +96,16 @@ private:
   G4double fEnergy = -999.;
   //Charge
   G4double fCharge = -999.;
+  // Momentum
+  G4double fPx = -999.;
+  G4double fPy = -999.;
+  G4double fPz = -999.;
+  // Mass
+  G4double fMass = -999.;
+  // Track ID
+  G4int fTrackID = -999;
+  // Parent ID
+  G4int fParentID = -999;
 
 };
 

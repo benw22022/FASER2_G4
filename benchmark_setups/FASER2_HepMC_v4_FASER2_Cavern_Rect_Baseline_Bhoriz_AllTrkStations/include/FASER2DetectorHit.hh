@@ -53,6 +53,7 @@ private:
   G4int fPDGID = -999;
   /// Energy
   G4double fEnergy = -999.;
+  
 
 };
 

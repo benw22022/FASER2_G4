@@ -56,7 +56,7 @@ public:
 
   G4AnalysisManager* man;
 
-  void FillHitsRow(G4double x, G4double y, G4double z, G4double E, G4int pdgc, G4double charge, G4int layernum);
+  void FillHitsRow(G4double x, G4double y, G4double z, G4double px, G4double py, G4double pz, G4double m, G4double E, G4int pdgc, G4double charge, G4int layernum, G4int trackID, G4int parentID);
   void ClearHits();
   G4int MergeHits(G4double xtol, G4double ytol);
 
@@ -70,6 +70,12 @@ public:
     mutable std::vector<G4double> m_hits_E;
     mutable std::vector<G4int>    m_hits_pdgc;
     mutable std::vector<G4double> m_hits_charge;
+    mutable std::vector<G4double> m_hits_px;
+    mutable std::vector<G4double> m_hits_py;
+    mutable std::vector<G4double> m_hits_pz;
+    mutable std::vector<G4double> m_hits_mass;
+    mutable std::vector<G4int>    m_hits_trackID;
+    mutable std::vector<G4int>    m_hits_parentID;
     mutable std::vector<G4int>    m_hits_layernum;
 
     std::set<G4int> FindHitsToMerge(G4double xtol, G4double ytol) const;
